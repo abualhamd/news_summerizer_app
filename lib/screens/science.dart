@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/components.dart';
-import 'package:news_app/constants.dart';
+import 'package:news_app/shared/components.dart';
+import 'package:news_app/shared/constants.dart';
 
 class Science extends StatelessWidget {
   const Science({Key? key}) : super(key: key);

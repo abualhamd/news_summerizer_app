@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/cubit/states.dart';
+import 'package:news_app/helpers/cache_helper.dart';
 import 'package:news_app/screens/business.dart';
 import 'package:news_app/screens/sport.dart';
 import 'package:news_app/screens/science.dart';
-import '../constants.dart';
-import '../dio_helper.dart';
+import '../shared/constants.dart';
+import '../helpers/dio_helper.dart';
 
 class NewsCubit extends Cubit<AppState> {
   NewsCubit() : super(AppInitState());
@@ -13,7 +14,11 @@ class NewsCubit extends Cubit<AppState> {
   static NewsCubit get(BuildContext context) => BlocProvider.of(context);
 
   int currentIndex = Screens.business.index;
-  IconData modeIcon = Icons.dark_mode_outlined;
+  late IconData modeIcon;
+  // = CacheHelper.getDarkMode ?? false
+  //     ? Icons.dark_mode_outlined
+  //     : Icons.light_mode_outlined;
+
   ThemeMode appThemeMode = ThemeMode.light;
 
   final List<String> _labels = [
@@ -46,15 +51,22 @@ class NewsCubit extends Cubit<AppState> {
     emit(AppChangeScreenIndexState());
   }
 
-  void toggleModeIcon() {
-    if (modeIcon == Icons.dark_mode_outlined) {
-      modeIcon = Icons.light_mode_outlined;
-      appThemeMode = ThemeMode.dark;
-    } else {
-      modeIcon = Icons.dark_mode_outlined;
-      appThemeMode = ThemeMode.light;
+  void toggleModeIcon({bool? fromSharedPreferences}) {
+    if(fromSharedPreferences == null){
+      if (modeIcon == Icons.dark_mode_outlined) {
+        CacheHelper.setDarkMode(isDark: true);
+        modeIcon = Icons.light_mode_outlined;
+        appThemeMode = ThemeMode.dark;
+      } else {
+        CacheHelper.setDarkMode(isDark: false);
+        modeIcon = Icons.dark_mode_outlined;
+        appThemeMode = ThemeMode.light;
+      }
     }
-
+    else{
+      modeIcon = fromSharedPreferences?Icons.light_mode_outlined:Icons.dark_mode_outlined;
+      appThemeMode = fromSharedPreferences?ThemeMode.dark:ThemeMode.light;
+    }
     emit(AppToggleModeIThemeState());
   }
 
