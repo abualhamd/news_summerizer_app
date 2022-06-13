@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 
 class DioHelper {
   static late Dio dio;
-  static const String weatherApiKey = '982c398a781a4365b9633e046fc2d001';
+  static const String weatherApiKey = 'c91a53f47e8e4c0eae44af33e30882ca';//'982c398a781a4365b9633e046fc2d001';
   static const String baseURL = 'https://newsapi.org/';
   static const String url = 'v2/top-headlines';
 

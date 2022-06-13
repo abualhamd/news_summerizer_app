@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/cubit/states.dart';
 import 'package:news_app/helpers/cache_helper.dart';
-import 'package:news_app/screens/business.dart';
-import 'package:news_app/screens/sport.dart';
-import 'package:news_app/screens/science.dart';
+import 'package:news_app/screens/business_screen.dart';
+import 'package:news_app/screens/sport_screen.dart';
+import 'package:news_app/screens/science_screen.dart';
 import '../shared/constants.dart';
 import '../helpers/dio_helper.dart';
 
@@ -14,11 +14,7 @@ class NewsCubit extends Cubit<AppState> {
   static NewsCubit get(BuildContext context) => BlocProvider.of(context);
 
   int currentIndex = Screens.business.index;
-  late IconData modeIcon;
-  // = CacheHelper.getDarkMode ?? false
-  //     ? Icons.dark_mode_outlined
-  //     : Icons.light_mode_outlined;
-
+  IconData modeIcon = Icons.light_mode_outlined;
   ThemeMode appThemeMode = ThemeMode.light;
 
   final List<String> _labels = [

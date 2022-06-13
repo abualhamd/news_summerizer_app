@@ -7,10 +7,9 @@ import 'package:news_app/helpers/dio_helper.dart';
 import 'package:news_app/shared/themes.dart';
 import 'helpers/cache_helper.dart';
 import 'shared/constants.dart';
-import 'screens/home.dart';
+import 'screens/home_screen.dart';
 
 void main() {
-  // BlocOverrides.runZoned(() => runApp(const MyApp()), blocObserver: MyBlocObserver());
   BlocOverrides.runZoned(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
@@ -51,3 +50,30 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+// import 'package:flutter/material.dart';
+//
+// class Search extends StatelessWidget {
+//   Search({Key? key}) : super(key: key);
+//   final TextEditingController searchController = TextEditingController();
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(),
+//       body: Form(
+//           child: TextFormField(
+//             decoration: const InputDecoration(
+//               prefixIcon: Icon(Icons.search_outlined),
+//             ),
+//             controller: searchController,
+//             keyboardType: TextInputType.text,
+//             validator: (value){
+//               if(value == null || value.isEmpty)
+//                 return "field can't be empty";
+//               else
+//                 return null;
+//             },
+//           )),
+//     );
+//   }
+// }
