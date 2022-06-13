@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/components.dart';
+import 'package:news_app/cubit/cubit.dart';
+import 'package:news_app/cubit/states.dart';
+
+import '../constants.dart';
 
 class Business extends StatelessWidget {
   const Business({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('business'),
+    return BlocConsumer<NewsCubit, AppState>(
+      listener: (context, state){},
+      builder: (context, state) => NewsCategoryComponent(
+          categoryIndex: Screens.business.index),
     );
+    //   child: ,
+    // ); //  articles.length
   }
 }

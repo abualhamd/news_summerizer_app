@@ -9,17 +9,16 @@ class Home extends StatelessWidget {
     NewsCubit cubit = NewsCubit.get(context);
 
     return SafeArea(
-
       child: Scaffold(
         appBar: AppBar(
           title: const Text('News'),
           actions: <Widget>[
-            IconButton(onPressed: (){}, icon: Icon(Icons.search)),
+            IconButton(onPressed: (){}, icon: const Icon(Icons.search)),
             IconButton(onPressed: () => cubit.toggleModeIcon(), icon: Icon(cubit.modeIcon)),
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
-          onTap: (index) => cubit.changeIndex(index),
+          onTap: (index) => cubit.changeScreenIndex(index),
           currentIndex: cubit.currentIndex,
           items: cubit.bottomNavigationItems,
         ),
