@@ -25,9 +25,9 @@ class NewsCubit extends Cubit<AppState> {
   ];
 
   final List<Widget> screens = [
-    Business(),
-    Sport(),
-    Science(),
+    const Business(),
+    const Sport(),
+    const Science(),
   ];
 
   late List<BottomNavigationBarItem> bottomNavigationItems = [

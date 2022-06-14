@@ -63,7 +63,7 @@ final InputDecoration kInputDecoration = InputDecoration(
   border: OutlineInputBorder(
       borderSide: BorderSide.none, borderRadius: BorderRadius.circular(20)),
   focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.lightBlueAccent),
+      borderSide: const BorderSide(color: Colors.lightBlueAccent),
       borderRadius: BorderRadius.circular(20)),
   filled: true,
   fillColor: Colors.grey[200],
