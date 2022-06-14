@@ -8,6 +8,7 @@ import 'package:news_app/screens/science_screen.dart';
 import '../shared/constants.dart';
 import '../helpers/dio_helper.dart';
 
+//TODO split into NewsCubit and AppCubit; the AppCubit containing the toggleDarkMode
 class NewsCubit extends Cubit<AppState> {
   NewsCubit() : super(AppInitState());
 
@@ -18,9 +19,9 @@ class NewsCubit extends Cubit<AppState> {
   ThemeMode appThemeMode = ThemeMode.light;
 
   final List<String> _labels = [
-    'Business',
-    'Sport',
-    'Science',
+    'business',
+    'sport',
+    'science',
   ];
 
   final List<Widget> screens = [
@@ -29,7 +30,6 @@ class NewsCubit extends Cubit<AppState> {
     Science(),
   ];
 
-  //TODO
   late List<BottomNavigationBarItem> bottomNavigationItems = [
     BottomNavigationBarItem(
         icon: const Icon(Icons.business_outlined),
@@ -70,18 +70,30 @@ class NewsCubit extends Cubit<AppState> {
     [],
     [],
     [],
+    []
   ];
 
   void getNewsOfCategory({required int categoryIndex}) {
     emit(AppGetCategoryNewsLoadingState());
-    DioHelper.getData(category: {
-      'category': _labels[categoryIndex].toLowerCase(),
+    DioHelper.getDataOfCategory(category: {
+      'category': _labels[categoryIndex],
     }).then((value) {
       categories[categoryIndex] = value.data['articles'];
       emit(AppGetCategoryNewsSuccessState());
     }).catchError((error) {
       print(error.toString());
       emit(AppGetCategoryNewsErrorState());
+    });
+  }
+
+  void getNewsOfSearch({required String query}) {
+    emit(AppGetSearchLoadingState());
+    DioHelper.getDataOfSearch(query: query).then((value) {
+      categories[Screens.search.index] = value.data['articles'];
+      emit(AppGetSearchSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(AppGetSearchErrorState());
     });
   }
 

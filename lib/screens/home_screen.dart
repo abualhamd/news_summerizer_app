@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/cubit/cubit.dart';
 import 'search_screen.dart';
+import 'package:news_app/shared/constants.dart';
+
+//TODO add refresh to all screens
+//TODO add settings to the application like language and country
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -16,6 +20,7 @@ class Home extends StatelessWidget {
           actions: <Widget>[
             IconButton(
                 onPressed: () {
+                  cubit.categories[Screens.search.index] = [];
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -25,8 +30,9 @@ class Home extends StatelessWidget {
                 },
                 icon: const Icon(Icons.search)),
             IconButton(
-                onPressed: () => cubit.toggleModeIcon(),
-                icon: Icon(cubit.modeIcon)),
+              onPressed: () => cubit.toggleModeIcon(),
+              icon: Icon(cubit.modeIcon),
+            ),
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
