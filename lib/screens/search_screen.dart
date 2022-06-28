@@ -7,7 +7,12 @@ import '../shared/components.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 
-class Search extends StatelessWidget {
+class Search extends StatefulWidget {
+  @override
+  State<Search> createState() => _SearchState();
+}
+
+class _SearchState extends State<Search> {
   final TextEditingController searchController = TextEditingController();
 
   @override
@@ -21,7 +26,8 @@ class Search extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: kHorizontalPaddingValue, vertical: 10),
-                //TODO solve the textfiled problem and work on the its decoration
+                //solved the textfiled problem(the keyboard kept poping out) by turning the screen into a stateful widget
+                //TODO work on the its decoration
                 child: TextField(
                   // focusNode: FocusNode(),
                   decoration: kInputDecoration,
