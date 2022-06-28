@@ -6,14 +6,7 @@ import 'package:news_app/shared/decorations_and_themes.dart';
 import '../shared/components.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
-// class Search extends StatefulWidget {
-//   @override
-//   State<Search> createState() => _SearchState();
-// }
-
 class Search extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<NewsCubit, AppState>(
