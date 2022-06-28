@@ -18,6 +18,8 @@ class NewsCubit extends Cubit<AppState> {
   IconData modeIcon = Icons.light_mode_outlined;
   ThemeMode appThemeMode = ThemeMode.light;
 
+  final TextEditingController searchController = TextEditingController();
+
   final List<String> _labels = [
     'business',
     'sport',
