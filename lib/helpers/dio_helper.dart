@@ -21,8 +21,8 @@ class DioHelper {
   static Future<Response<dynamic>> getDataOfCategory(
       {required Map<String, dynamic> category}) async {
     Map<String, dynamic> queryParams = {
-      'country': 'eg',//us
-      // 'language': 'en',
+      // 'country': 'eg',//us
+      'language': 'en',
       'apiKey': weatherApiKey
     };
     queryParams.addAll(category);
