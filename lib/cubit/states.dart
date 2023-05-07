@@ -11,3 +11,9 @@ class AppGetCategoryNewsLoadingState extends AppState{}
 class AppGetCategoryNewsSuccessState extends AppState{}
 
 class AppGetCategoryNewsErrorState extends AppState{}
+
+class AppGetSearchLoadingState extends AppState{}
+
+class AppGetSearchSuccessState extends AppState{}
+
+class AppGetSearchErrorState extends AppState{}
