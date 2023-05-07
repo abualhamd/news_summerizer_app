@@ -3,14 +3,15 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewScreen extends StatelessWidget {
   final String url;
-  const WebViewScreen({required this.url});
+  const WebViewScreen({super.key, required this.url});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(),
-        body: WebView(initialUrl: url,),
+        //TODO handle this better
+        body: WebViewWidget(controller: WebViewController()..loadRequest(Uri.parse(url))),
       ),
     );
   }

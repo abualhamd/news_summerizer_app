@@ -11,6 +11,7 @@ class NewsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(article);
     return InkWell(
       onTap: () => Navigator.push(
         context,
@@ -21,23 +22,39 @@ class NewsWidget extends StatelessWidget {
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: kHorizontalPaddingValue),
+        padding: const EdgeInsets.symmetric(
+            vertical: 10.0, horizontal: kHorizontalPaddingValue),
         child: Row(
           children: [
+            // Container(
+            //   decoration: BoxDecoration(
+            //     borderRadius: BorderRadius.circular(10.0),
+            //     image: DecorationImage(
+            //       image: NetworkImage(
+            //         //TODO add default image
+            //         article['urlToImage'].toString(),
+            //       ),
+            //       fit: BoxFit.cover,
+            //     ),
+            //   ),
+            //   height: 120,
+            //   width: 120,
+            //   // child: ,
+            // ),
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
-                image: DecorationImage(
-                  image: NetworkImage(
-                    //TODO add default image
-                    article['urlToImage'].toString(),
-                  ),
-                  fit: BoxFit.cover,
-                ),
               ),
               height: 120,
               width: 120,
-              // child: ,
+              child: Image.network(
+                article['urlToImage'].toString(),
+                errorBuilder: (context, error, stackTrace) =>
+                    Image.asset('lib/assets/news-default-image@2x_0.png'),
+                // loadingBuilder: (context, child, loadingProgress) =>
+                //     const CircularProgressIndicator(),
+                fit: BoxFit.cover,
+              ),
             ),
             const SizedBox(width: 15.0),
             Expanded(

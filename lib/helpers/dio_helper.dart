@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class DioHelper {
   static late Dio dio;
-  static const String weatherApiKey = '982c398a781a4365b9633e046fc2d001';
+  static String? weatherApiKey = dotenv.env['API_KEY'];
   static const String baseURL = 'https://newsapi.org/';
   static const String urlCategory = 'v2/top-headlines';
   static const String urlSearch = 'v2/everything';
@@ -20,7 +21,8 @@ class DioHelper {
   static Future<Response<dynamic>> getDataOfCategory(
       {required Map<String, dynamic> category}) async {
     Map<String, dynamic> queryParams = {
-      'country': 'eg',
+      'country': 'eg',//us
+      // 'language': 'en',
       'apiKey': weatherApiKey
     };
     queryParams.addAll(category);
