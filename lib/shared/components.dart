@@ -96,7 +96,7 @@ class NewsCategoryComponent extends StatelessWidget {
   final bool fromSearchScreen;
 
   const NewsCategoryComponent(
-      {required this.categoryIndex, this.fromSearchScreen = false});
+      {super.key, required this.categoryIndex, this.fromSearchScreen = false});
 
   @override
   Widget build(BuildContext context) {
