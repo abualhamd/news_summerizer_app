@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/components.dart';
-
-import '../constants.dart';
+import 'package:news_app/shared/components.dart';
+import '../shared/constants.dart';
 
 class Sport extends StatelessWidget {
   const Sport({Key? key}) : super(key: key);
