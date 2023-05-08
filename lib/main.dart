@@ -8,7 +8,7 @@ import 'package:news_app/helpers/dio_helper.dart';
 import 'package:news_app/shared/decorations_and_themes.dart';
 import 'helpers/cache_helper.dart';
 import 'shared/constants.dart';
-import 'screens/home_screen.dart';
+import 'view/home_screen.dart';
 
 void main() async {
   Bloc.observer = MyBlocObserver();

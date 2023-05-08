@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/cubit/states.dart';
 import 'package:news_app/helpers/cache_helper.dart';
-import 'package:news_app/screens/business_screen.dart';
-import 'package:news_app/screens/sport_screen.dart';
-import 'package:news_app/screens/science_screen.dart';
+import 'package:news_app/view/business_screen.dart';
+import 'package:news_app/view/sport_screen.dart';
+import 'package:news_app/view/science_screen.dart';
 import '../shared/constants.dart';
 import '../helpers/dio_helper.dart';
 

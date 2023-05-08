@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/shared/components.dart';
+import 'package:news_app/view/components/news_category_widget.dart';
 import '../shared/constants.dart';
 
 class Sport extends StatelessWidget {

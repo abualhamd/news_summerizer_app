@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/shared/components.dart';
+import 'package:news_app/view/components/news_category_widget.dart';
 import 'package:news_app/shared/constants.dart';
 
 class Science extends StatelessWidget {
