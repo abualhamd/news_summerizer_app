@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/cubit/cubit.dart';
+import 'package:news_app/view/cubit/cubit.dart';
 import 'search_screen.dart';
 import 'package:news_app/shared/constants.dart';
 

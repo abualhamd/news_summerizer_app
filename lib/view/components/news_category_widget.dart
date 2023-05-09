@@ -1,6 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app/cubit/cubit.dart';
+import 'package:news_app/view/cubit/cubit.dart';
 
 import '../../models/article_model.dart';
 import 'news_widget.dart';
@@ -23,9 +23,12 @@ class NewsCategoryComponent extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           itemBuilder: (context, index) {
             final article = articles[index];
-            return NewsWidget(
-              article: ArticleModel.fromJson(json: article),
-            );
+            if (article['content'] != null) {
+              return NewsWidget(
+                article: ArticleModelFromNewsData.fromJson(article: article),
+                // ArticleModel.fromJson(json: article),
+              );
+            }
           },
           separatorBuilder: (context, index) {
             return Container(

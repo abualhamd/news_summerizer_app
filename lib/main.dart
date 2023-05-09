@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:news_app/cubit/bloc_observer.dart';
-import 'package:news_app/cubit/cubit.dart';
-import 'package:news_app/cubit/states.dart';
+import 'package:news_app/view/cubit/bloc_observer.dart';
+import 'package:news_app/view/cubit/cubit.dart';
+import 'package:news_app/view/cubit/states.dart';
 import 'package:news_app/helpers/dio_helper.dart';
 import 'package:news_app/shared/decorations_and_themes.dart';
 import 'helpers/cache_helper.dart';

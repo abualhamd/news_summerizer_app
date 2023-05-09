@@ -5,10 +5,10 @@ class ArticleModel {
   final String publishedAt;
 
   ArticleModel(
-      {required this. articleUri,
-      required this. title,
-      required this. publishedAt,
-      required this. imageUrl});
+      {required this.articleUri,
+      required this.title,
+      required this.publishedAt,
+      required this.imageUrl});
 
   factory ArticleModel.fromJson({required Map<String, dynamic> json}) {
     final Uri articleUri = Uri.parse(json['url']);
@@ -18,9 +18,27 @@ class ArticleModel {
         publishedAt: json['publishedAt'],
         imageUrl: json['urlToImage'] ?? '');
   }
+}
 
-  // Uri get articleUri => _articleUri;
-  // String get articleTitle => _title;
-  // String get imageUrl => _imageUrl;
-  // String get publishedAt => _publishedAt;
+class ArticleModelFromNewsData extends ArticleModel {
+  final String content;
+  ArticleModelFromNewsData({
+    required super.articleUri,
+    required super.title,
+    required super.publishedAt,
+    required super.imageUrl,
+    required this.content,
+  });
+
+  factory ArticleModelFromNewsData.fromJson(
+      {required Map<String, dynamic> article}) {
+    final uri = Uri.parse(article['link']);
+    return ArticleModelFromNewsData(
+      articleUri: uri,
+      title: article['title'],
+      publishedAt: article['pubDate'],
+      imageUrl: article['image_url'] ?? '',//todo remove the ??
+      content: article['content'],
+    );
+  }
 }
