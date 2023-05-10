@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/view/cubit/states.dart';
 import 'package:news_app/view/cubit/cubit.dart';
-import 'package:news_app/shared/constants.dart';
-import 'package:news_app/shared/decorations_and_themes.dart';
+import 'package:news_app/app/utils/constants.dart';
+import 'package:news_app/app/utils/decorations_and_themes.dart';
 import 'components/news_category_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

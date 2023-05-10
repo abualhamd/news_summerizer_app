@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/view/cubit/states.dart';
-import 'package:news_app/helpers/cache_helper.dart';
 import 'package:news_app/view/business_screen.dart';
 import 'package:news_app/view/sport_screen.dart';
 import 'package:news_app/view/science_screen.dart';
-import '../../shared/constants.dart';
-import '../../helpers/dio_helper.dart';
+import '../../app/utils/constants.dart';
+import '../../data/helpers/cache_helper.dart';
+import '../../data/helpers/dio_helper.dart';
 
 //TODO split into NewsCubit and AppCubit; the AppCubit containing the toggleDarkMode
 class NewsCubit extends Cubit<AppState> {
@@ -100,15 +100,13 @@ class NewsCubit extends Cubit<AppState> {
   void summerizeContet({required String content}) {
     emit(SummerizationLoadingState());
     DioHelper.summerizeContent(content: content).then((value) {
-      print('Summerization: $value');
       emit(SummerizationSuccessState(summerization: value));
     }).catchError((error) {
-      print(error.toString());
       emit(SummerizationErrorState());
     });
   }
 
-  void ScreenChanged() {
+  void screenChanged() {
     emit(ScreenChangedState());
   }
 

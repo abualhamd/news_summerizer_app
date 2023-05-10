@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app/models/article_model.dart';
-import '../../shared/constants.dart';
+import '../../app/utils/constants.dart';
+import '../../data/models/article_model.dart';
 import '../article_screen.dart';
 import '../cubit/cubit.dart';
 import '../cubit/states.dart';
@@ -25,7 +25,7 @@ class NewsWidget extends StatelessWidget {
                 ),
               ),
             );
-            BlocProvider.of<NewsCubit>(context, listen: false).ScreenChanged();
+            BlocProvider.of<NewsCubit>(context, listen: false).screenChanged();
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(

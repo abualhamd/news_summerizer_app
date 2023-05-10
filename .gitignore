@@ -47,3 +47,5 @@ app.*.map.json
 
 # for env variables
 *.env
+
+lib/shared/snackbar.dart

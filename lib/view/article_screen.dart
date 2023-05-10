@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app/models/article_model.dart';
 import 'package:news_app/view/cubit/states.dart';
+import '../app/utils/toast.dart';
+import '../data/models/article_model.dart';
 import 'cubit/cubit.dart';
 
 class ArticleScreen extends StatelessWidget {
@@ -20,6 +21,9 @@ class ArticleScreen extends StatelessWidget {
       }
       if (state is! SummerizationSuccessState) {
         BlocProvider.of<NewsCubit>(context, listen: false).summerization = '';
+      }
+      if (state is SummerizationErrorState) {
+        showToast(message: 'Something Went Wrong, Try again later');
       }
     }, builder: (BuildContext context, state) {
       final cubit = NewsCubit.get(context);

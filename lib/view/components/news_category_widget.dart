@@ -2,7 +2,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:news_app/view/cubit/cubit.dart';
 
-import '../../models/article_model.dart';
+import '../../data/models/article_model.dart';
 import 'news_widget.dart';
 
 class NewsCategoryComponent extends StatelessWidget {
