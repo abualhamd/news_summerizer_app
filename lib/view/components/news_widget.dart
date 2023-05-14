@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../app/utils/assets_manager.dart';
+import '../../app/utils/colors_manager.dart';
 import '../../app/utils/constants.dart';
 import '../../data/models/article_model.dart';
 import '../article_screen.dart';
@@ -39,20 +41,20 @@ class NewsWidget extends StatelessWidget {
                   height: 120,
                   width: 120,
                   child: Visibility(
-                    visible: article.imageUrl.isNotEmpty,
+                    visible: article.imageUrl != null,
                     replacement:
-                        Image.asset('assets/news-default-image@2x_0.png'),
+                        Image.asset(ImagesManager.fallbackImage),
                     child: Image.network(
-                      article.imageUrl,
+                      article.imageUrl!,
                       errorBuilder: (context, error, stackTrace) =>
-                          Image.asset('assets/news-default-image@2x_0.png'),
+                          Image.asset(ImagesManager.fallbackImage),
                       // fit: BoxFit.cover,
                     ),
                   ),
                 ),
                 const SizedBox(width: 15.0),
                 Expanded(
-                  child: Container(
+                  child: SizedBox(
                     height: 120,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,7 +73,7 @@ class NewsWidget extends StatelessWidget {
                         ),
                         Text(
                           article.publishedAt,
-                          style: const TextStyle(color: Colors.grey),
+                          style: const TextStyle(color: ColorsManager.grey),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ],

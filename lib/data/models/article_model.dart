@@ -1,6 +1,6 @@
 class ArticleModel {
   final Uri articleUri;
-  final String imageUrl;
+  final String? imageUrl;
   final String title;
   final String publishedAt;
 
@@ -16,7 +16,7 @@ class ArticleModel {
         articleUri: articleUri,
         title: json['title'],
         publishedAt: json['publishedAt'],
-        imageUrl: json['urlToImage'] ?? '');
+        imageUrl: json['urlToImage']);
   }
 }
 

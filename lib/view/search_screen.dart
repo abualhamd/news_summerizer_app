@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/app/utils/assets_manager.dart';
 import 'package:news_app/view/cubit/states.dart';
 import 'package:news_app/view/cubit/cubit.dart';
 import 'package:news_app/app/utils/constants.dart';
 import 'package:news_app/app/utils/decorations_and_themes.dart';
+import '../app/utils/colors_manager.dart';
 import 'components/news_category_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -29,15 +31,15 @@ class SearchScreen extends StatelessWidget {
                   decoration: kInputDecoration.copyWith(
                       suffixIcon: GestureDetector(
                     child: const Icon(
-                      Icons.cancel_outlined,
-                      color: Colors.grey,
+                      IconsManager.cancelIcon,
+                      color: ColorsManager.grey,
                     ),
                     onTap: () {
                       read.searchController.clear();
                       // TODO clear the list
                     },
                   )),
-                  controller: NewsCubit.get(context).searchController,
+                  controller: context.watch<NewsCubit>().searchController,
                   keyboardType: TextInputType.text,
                   onChanged: (String query) {
                     read.getNewsOfSearch(query: query);

@@ -12,18 +12,15 @@ import '../../data/helpers/dio_helper.dart';
 class NewsCubit extends Cubit<AppState> {
   NewsCubit() : super(AppInitState());
 
-  static NewsCubit get(BuildContext context) => BlocProvider.of(context);
-
   int currentIndex = Screens.business.index;
   IconData modeIcon = Icons.light_mode_outlined;
   ThemeMode appThemeMode = ThemeMode.light;
-  String summerization = '';
+  String? summerization;
 
   final TextEditingController searchController = TextEditingController();
 
   final List<String> _labels = [
     'business',
-    // 'sport',
     'sports',
     'science',
   ];
@@ -73,6 +70,8 @@ class NewsCubit extends Cubit<AppState> {
 
   final List<List<dynamic>> categories = [[], [], [], []];
 
+  //TODO handle error states
+
   void getNewsOfCategory({required int categoryIndex}) {
     emit(AppGetCategoryNewsLoadingState());
     DioHelper.getDataOfCategory(categoryParams: {
@@ -107,6 +106,7 @@ class NewsCubit extends Cubit<AppState> {
   }
 
   void screenChanged() {
+    summerization = null;
     emit(ScreenChangedState());
   }
 

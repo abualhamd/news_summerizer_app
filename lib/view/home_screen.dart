@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/view/cubit/cubit.dart';
-import 'search_screen.dart';
+import '../app/config/routes_manager.dart';
+import '../app/utils/app_strings.dart';
+import '../app/utils/assets_manager.dart';
 import 'package:news_app/app/utils/constants.dart';
 
 //TODO add refresh to all screens
@@ -11,36 +14,37 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    NewsCubit cubit = NewsCubit.get(context);
+    final read = context.read<NewsCubit>();
+    final watch = context.watch<NewsCubit>();
 
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('News'),
+          title: const Text(AppStrings.appTitle),
           actions: <Widget>[
             IconButton(
                 onPressed: () {
-                  cubit.categories[Screens.search.index] = [];
-                  Navigator.push(
+                  read.categories[Screens.search.index] = [];
+                  Navigator.pushNamed(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => const SearchScreen(),
-                    ),
+                    Routes.searchRoute,
                   );
                 },
-                icon: const Icon(Icons.search)),
+                icon: const Icon(IconsManager.searchIcon)),
             IconButton(
-              onPressed: () => cubit.toggleModeIcon(),
-              icon: Icon(cubit.modeIcon),
+              onPressed: () => read.toggleModeIcon(),
+              icon: Icon(watch.modeIcon),
             ),
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
-          onTap: (index) => cubit.changeScreenIndex(index),
-          currentIndex: cubit.currentIndex,
-          items: cubit.bottomNavigationItems,
+          onTap: (index) => context
+              .read<NewsCubit>()
+              .changeScreenIndex(index), //cubit.changeScreenIndex(index),
+          currentIndex: watch.currentIndex,
+          items: watch.bottomNavigationItems,
         ),
-        body: cubit.screens[cubit.currentIndex],
+        body: watch.screens[watch.currentIndex],
       ),
     );
   }

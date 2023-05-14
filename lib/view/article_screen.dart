@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/app/utils/app_strings.dart';
+import 'package:news_app/app/utils/assets_manager.dart';
+import 'package:news_app/app/utils/colors_manager.dart';
 import 'package:news_app/view/cubit/states.dart';
 import '../app/utils/toast.dart';
 import '../data/models/article_model.dart';
@@ -11,81 +14,73 @@ class ArticleScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // bool sum_loaded = false;
-    // String summerization = "";
     return BlocConsumer<NewsCubit, AppState>(
         listener: (BuildContext context, state) {
       if (state is SummerizationSuccessState) {
         BlocProvider.of<NewsCubit>(context, listen: false).summerization =
             state.summerization;
       }
-      if (state is! SummerizationSuccessState) {
-        BlocProvider.of<NewsCubit>(context, listen: false).summerization = '';
-      }
       if (state is SummerizationErrorState) {
-        showToast(message: 'Something Went Wrong, Try again later');
+        showToast(message: AppStrings.summerizationErrorMessage);
       }
     }, builder: (BuildContext context, state) {
-      final cubit = NewsCubit.get(context);
-      return SafeArea(
-        child: Scaffold(
-          // appBar: AppBar(
-          //   flexibleSpace: Visibility(
-          //     child: Builder(builder: (context) {
-          //       final bool imageExists = article.imageUrl.isNotEmpty;
-          //       // return Stack(
-          //       // alignment: Alignment.bottomLeft,
-          //       return Visibility(
-          //         visible: imageExists,
-          //         child: Image.network(
-          //           article.imageUrl,
-          //           width: double.infinity,
-          //           errorBuilder: null,
-          //         ),
-          //       );
+      final watch = context.watch<NewsCubit>();
+      final controller = ScrollController();
 
-          //       // );
-          //     }),
-          //   ),
-          // ),
-          body: SingleChildScrollView(
-            child: Column(
-              // crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                      top: 10.0, bottom: 5, right: 10, left: 10),
-                  child: Text(
-                    article.title,
-                    style: TextStyle(
-                        color: Colors.black, //imageExists ? Colors.white :
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold),
-                  ),
+      return SafeArea(
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Scaffold(
+              floatingActionButton: AbsorbPointer(
+                absorbing: watch.summerization != null,
+                child: FloatingActionButton(
+                  onPressed: () {
+                    BlocProvider.of<NewsCubit>(context)
+                        .summerizeContet(content: article.content);
+                  },
+                  child: const Icon(IconsManager.summerizeIcon),
                 ),
-                Visibility(
-                  child: ElevatedButton(
-                      onPressed: () {
-                        BlocProvider.of<NewsCubit>(context)
-                            .summerizeContet(content: article.content);
-                      },
-                      child: Text('Summerize')),
-                  visible: state is! SummerizationLoadingState,
-                  replacement: CircularProgressIndicator(),
+              ),
+              body: SingleChildScrollView(
+                controller: controller,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: 10.0, bottom: 5, right: 10, left: 10),
+                      child: Text(
+                        article.title,
+                        style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                      child: Container(
+                        height: 1,
+                        decoration: const BoxDecoration(color: ColorsManager.grey),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: 5, bottom: 80, left: 10, right: 10),
+                      child: Text(
+                        watch.summerization ?? article.content,
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      top: 5, bottom: 10, left: 10, right: 10),
-                  child: Text(
-                    cubit.summerization.isEmpty
-                        ? article.content
-                        : cubit.summerization,
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
+            Visibility(
+              visible: state is SummerizationLoadingState,
+              child: const CircularProgressIndicator(),
+            )
+          ],
         ),
       );
     });
