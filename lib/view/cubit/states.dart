@@ -30,5 +30,3 @@ class SummerizationSuccessState extends AppState {
 }
 
 class SummerizationErrorState extends AppState {}
-//? screen changed 
-class ScreenChangedState extends AppState{}

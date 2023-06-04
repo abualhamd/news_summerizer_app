@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/view/cubit/cubit.dart';
-import '../app/config/routes_manager.dart';
-import '../app/utils/app_strings.dart';
-import '../app/utils/assets_manager.dart';
-import 'package:news_app/app/utils/constants.dart';
+
+import '../../app/config/routes_manager.dart';
+import '../../app/utils/values_managers/app_strings.dart';
+import '../../app/utils/values_managers/assets_manager.dart';
+import '../../app/utils/enums.dart';
 
 //TODO add refresh to all screens
 //TODO add settings to the application like language and country
@@ -24,7 +25,7 @@ class Home extends StatelessWidget {
           actions: <Widget>[
             IconButton(
                 onPressed: () {
-                  read.categories[Screens.search.index] = [];
+                  read.categories[Categories.search.index] = [];
                   Navigator.pushNamed(
                     context,
                     Routes.searchRoute,
@@ -32,7 +33,7 @@ class Home extends StatelessWidget {
                 },
                 icon: const Icon(IconsManager.searchIcon)),
             IconButton(
-              onPressed: () => read.toggleModeIcon(),
+              onPressed: () async => await read.toggleModeIcon(),
               icon: Icon(watch.modeIcon),
             ),
           ],
@@ -40,11 +41,11 @@ class Home extends StatelessWidget {
         bottomNavigationBar: BottomNavigationBar(
           onTap: (index) => context
               .read<NewsCubit>()
-              .changeScreenIndex(index), //cubit.changeScreenIndex(index),
-          currentIndex: watch.currentIndex,
+              .changeScreenIndex(category:Categories.values[index]), //cubit.changeScreenIndex(index),
+          currentIndex: watch.currentCategory.index,
           items: watch.bottomNavigationItems,
         ),
-        body: watch.screens[watch.currentIndex],
+        body: watch.screens[watch.currentCategory.index],
       ),
     );
   }
