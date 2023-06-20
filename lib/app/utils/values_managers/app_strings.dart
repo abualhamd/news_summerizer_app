@@ -1,5 +1,5 @@
 abstract class AppStrings {
-  static const String appTitle = "News Summerizer";
+  static const String appTitle = "SummNews";
   static const String undefinedRoute = "undefined Route";
   static const String summerize = 'Summerize';
   static const String summerizationErrorMessage =
