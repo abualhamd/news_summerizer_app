@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.news_summerizer_app">
    <application
-        android:label="news_summerizer_app"
+        android:label="SummNews"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -6,7 +6,7 @@ class CacheHelper{
      _prefs = await SharedPreferences.getInstance();
   }
 
-  static void setDarkMode({required bool isDark}) async{
+  static Future<void> setDarkMode({required bool isDark}) async{
     await _prefs.setBool('isDark', isDark);
   }
 

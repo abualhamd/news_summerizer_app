@@ -1,61 +1,58 @@
+import 'dart:core';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/app/utils/extensions/get_category_icon_extension.dart';
+import 'package:news_app/app/utils/extensions/get_category_label_extension.dart';
+import 'package:news_app/data/models/article_model.dart';
 import 'package:news_app/view/cubit/states.dart';
-import 'package:news_app/view/business_screen.dart';
-import 'package:news_app/view/sport_screen.dart';
-import 'package:news_app/view/science_screen.dart';
-import '../../app/utils/constants.dart';
+import '../../app/utils/enums.dart';
 import '../../data/helpers/cache_helper.dart';
 import '../../data/helpers/dio_helper.dart';
+import '../home/components/news_category_widget.dart';
 
 //TODO split into NewsCubit and AppCubit; the AppCubit containing the toggleDarkMode
 class NewsCubit extends Cubit<AppState> {
   NewsCubit() : super(AppInitState());
 
-  int currentIndex = Screens.business.index;
+  // int currentIndex = Screens.business.index;
+  Categories currentCategory = Categories.business;
   IconData modeIcon = Icons.light_mode_outlined;
   ThemeMode appThemeMode = ThemeMode.light;
-  String? summerization;
 
-  final TextEditingController searchController = TextEditingController();
-
-  final List<String> _labels = [
-    'business',
-    'sports',
-    'science',
-  ];
-
-  final List<Widget> screens = [
-    const Business(),
-    const Sport(),
-    const Science(),
+  final List<Widget> screens = const [
+    NewsCategoryComponent(category: Categories.business),
+    NewsCategoryComponent(category: Categories.sport),
+    NewsCategoryComponent(category: Categories.science),
   ];
 
   late List<BottomNavigationBarItem> bottomNavigationItems = [
     BottomNavigationBarItem(
-        icon: const Icon(Icons.business_outlined),
-        label: _labels[Screens.business.index]),
+        icon: Icon(Categories.business.getIcon()),
+        label: Categories.business.getLabel()),
     BottomNavigationBarItem(
-        icon: const Icon(Icons.sports_soccer_outlined),
-        label: _labels[Screens.sport.index]),
+      icon: Icon(Categories.sport.getIcon()),
+      label: Categories.sport.getLabel(),
+    ),
     BottomNavigationBarItem(
-        icon: const Icon(Icons.science_outlined),
-        label: _labels[Screens.science.index]),
+      icon: Icon(Categories.science.getIcon()),
+      label: Categories.science.getLabel(),
+    )
   ];
 
-  void changeScreenIndex(int index) {
-    currentIndex = index;
+  void changeScreenIndex({required Categories category}) {
+    currentCategory = category;
     emit(AppChangeScreenIndexState());
   }
 
-  void toggleModeIcon({bool? fromSharedPreferences}) {
+  Future<void> toggleModeIcon({bool? fromSharedPreferences}) async {
     if (fromSharedPreferences == null) {
       if (modeIcon == Icons.dark_mode_outlined) {
-        CacheHelper.setDarkMode(isDark: true);
+        await CacheHelper.setDarkMode(isDark: true);
         modeIcon = Icons.light_mode_outlined;
         appThemeMode = ThemeMode.dark;
       } else {
-        CacheHelper.setDarkMode(isDark: false);
+        await CacheHelper.setDarkMode(isDark: false);
         modeIcon = Icons.dark_mode_outlined;
         appThemeMode = ThemeMode.light;
       }
@@ -65,6 +62,7 @@ class NewsCubit extends Cubit<AppState> {
           : Icons.dark_mode_outlined;
       appThemeMode = fromSharedPreferences ? ThemeMode.dark : ThemeMode.light;
     }
+
     emit(AppToggleModeIThemeState());
   }
 
@@ -72,15 +70,15 @@ class NewsCubit extends Cubit<AppState> {
 
   //TODO handle error states
 
-  void getNewsOfCategory({required int categoryIndex}) {
+  void getNewsOfCategory({required Categories category}) {
     emit(AppGetCategoryNewsLoadingState());
     DioHelper.getDataOfCategory(categoryParams: {
-      'category': _labels[categoryIndex],
+      'category': category.getLabel(),
     }).then((value) {
-      categories[categoryIndex] = value.data['results']; //['articles'];
+      categories[category.index] = value.data['results'];
       emit(AppGetCategoryNewsSuccessState());
     }).catchError((error) {
-      print(error.toString());
+      debugPrint(error.toString());
       emit(AppGetCategoryNewsErrorState());
     });
   }
@@ -88,10 +86,10 @@ class NewsCubit extends Cubit<AppState> {
   void getNewsOfSearch({required String query}) {
     emit(AppGetSearchLoadingState());
     DioHelper.getDataOfSearch(query: query).then((value) {
-      categories[Screens.search.index] = value.data['results']; //['articles'];
+      categories[Categories.search.index] = value.data['results'];
       emit(AppGetSearchSuccessState());
     }).catchError((error) {
-      print(error.toString());
+      debugPrint(error.toString());
       emit(AppGetSearchErrorState());
     });
   }
@@ -99,18 +97,27 @@ class NewsCubit extends Cubit<AppState> {
   void summerizeContet({required String content}) {
     emit(SummerizationLoadingState());
     DioHelper.summerizeContent(content: content).then((value) {
-      emit(SummerizationSuccessState(summerization: value));
+
+      emit(SummerizationSuccessState());
+      articleModel!.setSummerization(summerization: value);
+      changeArticleDisplayText(text: value);
     }).catchError((error) {
       emit(SummerizationErrorState());
     });
   }
 
-  void screenChanged() {
-    summerization = null;
-    emit(ScreenChangedState());
+  ArticleModelFromNewsData? _articleModel;
+
+  ArticleModelFromNewsData? get articleModel => _articleModel;
+  set setArticleModel(ArticleModelFromNewsData articleModel) {
+    _articleModel = articleModel;
   }
 
-// void statusBarColor() => SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-//   statusBarColor: Colors.white,
-// ));
+  late String _articleDisplayText;
+  String get articleDisplayText => _articleDisplayText;
+  void changeArticleDisplayText({required String text}) {
+    _articleDisplayText = text;
+
+    emit(ChangeArticleDisplayTextState());
+  }
 }

@@ -3,19 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/view/cubit/cubit.dart';
 
-import '../../data/models/article_model.dart';
+import '../../../app/utils/enums.dart';
+import '../../../data/models/article_model.dart';
 import 'news_widget.dart';
 
 class NewsCategoryComponent extends StatelessWidget {
-  final int categoryIndex;
-  final bool fromSearchScreen;
+  // final int categoryIndex;
+  // final bool fromSearchScreen;
+  final Categories _category;
 
-  const NewsCategoryComponent(
-      {super.key, required this.categoryIndex, this.fromSearchScreen = false});
+  const NewsCategoryComponent({super.key, required Categories category})
+      : _category = category;
 
   @override
   Widget build(BuildContext context) {
-    List<dynamic> articles = context.watch<NewsCubit>().categories[categoryIndex];
+    List<dynamic> articles =
+        context.watch<NewsCubit>().categories[_category.index];
 
     return ConditionalBuilder(
       condition: articles.isNotEmpty,
@@ -40,7 +43,7 @@ class NewsCategoryComponent extends StatelessWidget {
           itemCount: articles.length,
         );
       },
-      fallback: (BuildContext context) => fromSearchScreen
+      fallback: (BuildContext context) => (_category == Categories.search)
           ? Container()
           : const Center(child: CircularProgressIndicator()),
     );

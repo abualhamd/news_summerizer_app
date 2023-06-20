@@ -22,6 +22,11 @@ class ArticleModel {
 
 class ArticleModelFromNewsData extends ArticleModel {
   final String content;
+  String? _summerization;
+
+  void setSummerization({required String summerization}) => _summerization = summerization;
+  String? get summerization => _summerization;
+
   ArticleModelFromNewsData({
     required super.articleUri,
     required super.title,
@@ -37,7 +42,7 @@ class ArticleModelFromNewsData extends ArticleModel {
       articleUri: uri,
       title: article['title'],
       publishedAt: article['pubDate'],
-      imageUrl: article['image_url'] ?? '',//todo remove the ??
+      imageUrl: article['image_url'], //todo remove the ??
       content: article['content'],
     );
   }
