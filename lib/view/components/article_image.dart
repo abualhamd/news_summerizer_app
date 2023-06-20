@@ -11,20 +11,18 @@ class ArticleImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Visibility(
-      visible: imageUrl != null,
-      replacement: Image.asset(
-        ImagesManager.fallbackImage,
-        fit: BoxFit.fill,
-      ),
-      child: Image.network(
-        imageUrl!,
-        errorBuilder: (context, error, stackTrace) => Image.asset(
-          ImagesManager.fallbackImage,
-          fit: BoxFit.fill,
-        ),
-        fit: BoxFit.fill,
-      ),
-    );
+    return (imageUrl != null && imageUrl!.isNotEmpty)
+        ? Image.network(
+            imageUrl!,
+            errorBuilder: (context, error, stackTrace) => Image.asset(
+              ImagesManager.fallbackImage,
+              fit: BoxFit.fill,
+            ),
+            fit: BoxFit.fill,
+          )
+        : Image.asset(
+            ImagesManager.fallbackImage,
+            fit: BoxFit.fill,
+          );
   }
 }

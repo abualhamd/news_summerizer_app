@@ -1,3 +1,5 @@
+import 'dart:core';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/app/utils/extensions/get_category_icon_extension.dart';
@@ -17,7 +19,6 @@ class NewsCubit extends Cubit<AppState> {
   Categories currentCategory = Categories.business;
   IconData modeIcon = Icons.light_mode_outlined;
   ThemeMode appThemeMode = ThemeMode.light;
-  String? summerization;
 
   final List<Widget> screens = const [
     NewsCategoryComponent(category: Categories.business),
@@ -39,7 +40,7 @@ class NewsCubit extends Cubit<AppState> {
     )
   ];
 
-  void changeScreenIndex({required Categories category}) {//int index
+  void changeScreenIndex({required Categories category}) {
     currentCategory = category;
     emit(AppChangeScreenIndexState());
   }
@@ -74,7 +75,7 @@ class NewsCubit extends Cubit<AppState> {
     DioHelper.getDataOfCategory(categoryParams: {
       'category': category.getLabel(),
     }).then((value) {
-      categories[category.index] = value.data['results']; //['articles'];
+      categories[category.index] = value.data['results'];
       emit(AppGetCategoryNewsSuccessState());
     }).catchError((error) {
       debugPrint(error.toString());
@@ -85,8 +86,7 @@ class NewsCubit extends Cubit<AppState> {
   void getNewsOfSearch({required String query}) {
     emit(AppGetSearchLoadingState());
     DioHelper.getDataOfSearch(query: query).then((value) {
-      categories[Categories.search.index] =
-          value.data['results']; //['articles'];
+      categories[Categories.search.index] = value.data['results'];
       emit(AppGetSearchSuccessState());
     }).catchError((error) {
       debugPrint(error.toString());
@@ -97,15 +97,13 @@ class NewsCubit extends Cubit<AppState> {
   void summerizeContet({required String content}) {
     emit(SummerizationLoadingState());
     DioHelper.summerizeContent(content: content).then((value) {
-      emit(SummerizationSuccessState(summerization: value));
+
+      emit(SummerizationSuccessState());
+      articleModel!.setSummerization(summerization: value);
+      changeArticleDisplayText(text: value);
     }).catchError((error) {
       emit(SummerizationErrorState());
     });
-  }
-
-  void screenChanged() {
-    _articleModel = null;
-    summerization = null;
   }
 
   ArticleModelFromNewsData? _articleModel;
@@ -113,5 +111,13 @@ class NewsCubit extends Cubit<AppState> {
   ArticleModelFromNewsData? get articleModel => _articleModel;
   set setArticleModel(ArticleModelFromNewsData articleModel) {
     _articleModel = articleModel;
+  }
+
+  late String _articleDisplayText;
+  String get articleDisplayText => _articleDisplayText;
+  void changeArticleDisplayText({required String text}) {
+    _articleDisplayText = text;
+
+    emit(ChangeArticleDisplayTextState());
   }
 }

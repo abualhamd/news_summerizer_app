@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:news_app/app/utils/values_managers/app_strings.dart';
 import 'package:news_app/app/utils/values_managers/colors_manager.dart';
 import '../utils/values_managers/constants.dart';
 
@@ -31,6 +30,22 @@ final ThemeData lightTheme = ThemeData(
   floatingActionButtonTheme: FloatingActionButtonThemeData(
     backgroundColor: ColorsManager.orangeShade800,
     foregroundColor: ColorsManager.white,
+  ),
+  //? textfield
+  inputDecorationTheme: InputDecorationTheme(
+    border: OutlineInputBorder(
+        borderSide: BorderSide.none, borderRadius: BorderRadius.circular(20.r)),
+    focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+            color:
+                ColorsManager.orangeShade800), //ColorsManager.lightBlueAccent),
+        borderRadius: BorderRadius.circular(20.r)),
+    filled: true,
+    hoverColor: Colors.lightBlueAccent,
+    fillColor: Colors.grey[200],
+    prefixIconColor: Colors.grey[400],
+    //TODO prefixIconColor: ,
+    labelStyle: TextStyle(color: Colors.grey[600]),
   ),
 );
 
@@ -66,21 +81,20 @@ final ThemeData darkTheme = ThemeData(
     bodyLarge: TextStyle(color: ColorsManager.white),
     bodyMedium: TextStyle(color: ColorsManager.white),
   ),
-);
-
-final InputDecoration kInputDecoration = InputDecoration(
-  border: OutlineInputBorder(
-      borderSide: BorderSide.none, borderRadius: BorderRadius.circular(20.r)),
-  focusedBorder: OutlineInputBorder(
+  //? textfield
+  inputDecorationTheme: InputDecorationTheme(
+    border: OutlineInputBorder(
+        borderSide: BorderSide.none, borderRadius: BorderRadius.circular(20.r)),
+    focusedBorder: OutlineInputBorder(
       borderSide: const BorderSide(color: ColorsManager.lightBlueAccent),
-      borderRadius: BorderRadius.circular(20.r)),
-  filled: true,
-  fillColor: Colors.grey[200],
-  hoverColor: Colors.lightBlueAccent,
-  prefixIcon: Icon(
-    Icons.search_outlined,
-    color: Colors.grey[400],
+      borderRadius: BorderRadius.circular(20.r),
+    ),
+    filled: true,
+    hoverColor: Colors.lightBlueAccent,
+    fillColor: ColorsManager.white,
+    prefixIconColor: Colors.grey[400],
+    //TODO prefixIconColor: ,
+    labelStyle: TextStyle(color: Colors.grey[500]),
+    floatingLabelStyle: TextStyle(color: Colors.grey[400])
   ),
-  //TODO prefixIconColor: ,
-  label: Text(AppStrings.search, style: TextStyle(color: Colors.grey[600])),
 );

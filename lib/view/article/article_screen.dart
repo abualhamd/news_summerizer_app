@@ -19,15 +19,11 @@ class ArticleScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<NewsCubit, AppState>(
         listener: (BuildContext context, state) {
-      if (state is SummerizationSuccessState) {
-        BlocProvider.of<NewsCubit>(context, listen: false).summerization =
-            state.summerization;
-      }
       if (state is SummerizationErrorState) {
         showToast(message: AppStrings.summerizationErrorMessage);
       }
     }, builder: (BuildContext context, state) {
-      final watch = context.watch<NewsCubit>();
+      final read = context.read<NewsCubit>();
 
       return Stack(
         alignment: Alignment.center,
@@ -37,7 +33,8 @@ class ArticleScreen extends StatelessWidget {
             onDoubleTap: () {
               _scrollController.animateTo(
                 0,
-                duration: const Duration(milliseconds: Constants.milliSecondsScrollToTop),
+                duration: const Duration(
+                    milliseconds: Constants.milliSecondsScrollToTop),
                 curve: Curves.easeInOut,
               );
             },
@@ -46,11 +43,20 @@ class ArticleScreen extends StatelessWidget {
                 extendBodyBehindAppBar: true,
                 backgroundColor: ColorsManager.white,
                 floatingActionButton: AbsorbPointer(
-                  absorbing: watch.summerization != null,
+                  absorbing: state is SummerizationLoadingState,
                   child: FloatingActionButton(
                     onPressed: () {
-                      BlocProvider.of<NewsCubit>(context).summerizeContet(
-                          content: watch.articleModel!.content);
+                      if (read.articleModel?.summerization == null) {
+                        read.summerizeContet(
+                            content: read.articleModel!.content);
+                      } else {
+                        (read.articleDisplayText.length ==
+                                read.articleModel!.summerization!.length)
+                            ? read.changeArticleDisplayText(
+                                text: read.articleModel!.content)
+                            : read.changeArticleDisplayText(
+                                text: read.articleModel!.summerization!);
+                      }
                     },
                     child: const Icon(IconsManager.summerizeIcon),
                   ),

@@ -5,7 +5,7 @@ TODO:
 - [x] change statusbar color
 - [x] enhance news widget ui
 - [x] enhance news screen ui
-- [ ] change the decoration of the search screen
+- [x] change the decoration of the search screen
 - [ ] handle error cases.
 - [ ] check internet connectivity before launching the app.
 - [x] work on the app theme.

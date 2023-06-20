@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,14 +25,31 @@ class NewsWidget extends StatelessWidget {
           height: 140.h,
           child: InkWell(
             onTap: () async {
+              if (kDebugMode) {
+                print(read.articleModel?.summerization);
+              }
+              if (kDebugMode) {
+                print(article.summerization);
+              }
               read.setArticleModel = article;
+              read.changeArticleDisplayText(
+                  text: article.summerization ?? article.content);
               await Navigator.pushNamed(
                 context,
                 Routes.articleRoute,
               );
-              if (context.mounted) {
-                BlocProvider.of<NewsCubit>(context, listen: false)
-                    .screenChanged();
+              if (read.articleModel?.summerization != null) {
+                if (kDebugMode) {
+                  print('did it');
+                }
+                if (kDebugMode) {
+                  print('read sum: ${read.articleModel?.summerization}');
+                }
+                article.setSummerization(
+                    summerization: read.articleModel!.summerization!);
+                if (kDebugMode) {
+                  print('article summerization: ${article.summerization}');
+                }
               }
             },
             child: Padding(

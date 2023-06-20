@@ -43,7 +43,7 @@ class OldArticlebodyWidget extends StatelessWidget {
             padding:
                 const EdgeInsets.only(top: 5, bottom: 80, left: 10, right: 10),
             child: Text(
-              watch.summerization ?? article.content,
+              watch.articleModel?.summerization ?? article.content,
               style: TextStyle(fontSize: 20.sp),
             ),
           ),

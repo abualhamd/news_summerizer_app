@@ -24,9 +24,12 @@ class AppGetSearchErrorState extends AppState {}
 class SummerizationLoadingState extends AppState {}
 
 class SummerizationSuccessState extends AppState {
-  String summerization;
+  // String summerization;
 
-  SummerizationSuccessState({required this.summerization});
+  // SummerizationSuccessState();//{required this.summerization}
 }
 
 class SummerizationErrorState extends AppState {}
+
+//? changeArticleDisplayText
+class ChangeArticleDisplayTextState extends AppState {}

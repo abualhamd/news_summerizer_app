@@ -28,7 +28,7 @@ class MySliverArticleBody extends StatelessWidget {
           padding: EdgeInsets.only(
               top: 20.0.h, bottom: 80.h, right: 15.w, left: 15.w),
           child: Text(
-            watch.summerization ?? watch.articleModel!.content,
+            watch.articleDisplayText,
             style: TextStyle(
                 fontSize: 20.sp,
                 backgroundColor: ColorsManager.white,
