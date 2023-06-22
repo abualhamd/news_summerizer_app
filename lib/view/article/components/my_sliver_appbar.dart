@@ -1,6 +1,9 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:news_app/app/utils/values_managers/assets_manager.dart';
 import 'package:news_app/view/components/article_image.dart';
 import 'package:news_app/view/cubit/cubit.dart';
 
@@ -22,13 +25,12 @@ class MySliverAppbar extends StatelessWidget {
             height: 300.h,
             width: double.infinity,
             child: ShaderMask(
-              blendMode: BlendMode.darken,
+              blendMode: BlendMode.modulate,//BlendMode.multiply,//BlendMode.hardLight,
               shaderCallback: (Rect bounds) {
                 return LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      // ColorsManager.white,
                       Colors.grey.shade200,
                       Colors.grey.shade300,
                       Colors.grey.shade400,
@@ -52,6 +54,40 @@ class MySliverAppbar extends StatelessWidget {
                     ]).createShader(bounds);
               },
               child: ArticleImage(imageUrl: article?.imageUrl),
+            ),
+          ),
+          Positioned.directional(
+            textDirection: TextDirection.ltr,
+            start: 10.w,
+            top: 15.h,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(50),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade700
+                        .withOpacity(0.3),
+                    shape: BoxShape.circle,
+                    // boxShadow: [
+                    //   BoxShadow(
+                    //     color: Colors.white.withOpacity(0.2),
+                    //     blurRadius: 10,
+                    //     spreadRadius: -8,
+                    //   ),
+                    // ],
+                  ),
+                  child: IconButton(
+                    icon: const Icon(
+                      IconsManager.arrowBack,
+                      color: ColorsManager.white,
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+              ),
             ),
           ),
           Padding(

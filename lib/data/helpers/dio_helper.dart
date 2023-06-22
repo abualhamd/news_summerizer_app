@@ -36,7 +36,7 @@ class DioHelper {
       {required String content}) async {
     final res = await dio.post(summerizerUrl,
         options: Options(headers: {
-          'X-API-KEY': 'JqqVoahpmkXplcxlfdUlQZQcRJWjEYSNXFlpjELRRWsPDFvLNc'
+          'X-API-KEY': summerizerApiKey
         }),
         data: {
           "min_length": 5,
