@@ -8,7 +8,7 @@ import 'package:news_app/app/utils/values_managers/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../app/utils/values_managers/colors_manager.dart';
 import '../../app/utils/enums.dart';
-import '../home/components/news_category_widget.dart';
+import '../home_view/components/news_category_widget.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});
@@ -25,7 +25,11 @@ class SearchScreen extends StatelessWidget {
       builder: (context, state) {
         return SafeArea(
           child: Scaffold(
-            appBar: AppBar(),
+            appBar: AppBar(
+              leading: IconButton(
+                  onPressed: () => Navigator.pop(context),
+                  icon: const Icon(IconsManager.arrowBack)),
+            ),
             body: Column(
               children: [
                 Padding(

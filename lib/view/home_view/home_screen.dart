@@ -10,8 +10,8 @@ import '../../app/utils/enums.dart';
 //TODO add refresh to all screens
 //TODO add settings to the application like language and country
 
-class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,9 @@ class Home extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
+        
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: const Text(AppStrings.appTitle),
           actions: <Widget>[
             IconButton(
@@ -39,9 +41,9 @@ class Home extends StatelessWidget {
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
-          onTap: (index) => context
-              .read<NewsCubit>()
-              .changeScreenIndex(category:Categories.values[index]), //cubit.changeScreenIndex(index),
+          onTap: (index) => context.read<NewsCubit>().changeScreenIndex(
+              category:
+                  Categories.values[index]), //cubit.changeScreenIndex(index),
           currentIndex: watch.currentCategory.index,
           items: watch.bottomNavigationItems,
         ),

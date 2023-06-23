@@ -30,6 +30,7 @@ class MySliverArticleBody extends StatelessWidget {
           child: Text(
             watch.articleDisplayText,
             style: TextStyle(
+              height: 1.5,
                 fontSize: 20.sp,
                 backgroundColor: ColorsManager.white,
                 color: ColorsManager.black),

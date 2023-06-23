@@ -25,12 +25,14 @@ class MySliverAppbar extends StatelessWidget {
             height: 300.h,
             width: double.infinity,
             child: ShaderMask(
-              blendMode: BlendMode.modulate,//BlendMode.multiply,//BlendMode.hardLight,
+              blendMode: BlendMode
+                  .multiply, //BlendMode.multiply,//BlendMode.hardLight,
               shaderCallback: (Rect bounds) {
                 return LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
+                      Colors.grey.shade100,
                       Colors.grey.shade200,
                       Colors.grey.shade300,
                       Colors.grey.shade400,
@@ -42,7 +44,9 @@ class MySliverAppbar extends StatelessWidget {
                       ColorsManager.black,
                     ],
                     stops: const [
-                      0.1,
+                      // 0.0,
+                      0.3,
+                      0.35,
                       0.45,
                       0.55,
                       0.65,
@@ -61,13 +65,12 @@ class MySliverAppbar extends StatelessWidget {
             start: 10.w,
             top: 15.h,
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(50),
+              borderRadius: BorderRadius.circular(50.r),
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade700
-                        .withOpacity(0.3),
+                    color: Colors.grey.shade600.withOpacity(0.2),
                     shape: BoxShape.circle,
                     // boxShadow: [
                     //   BoxShadow(
@@ -95,6 +98,7 @@ class MySliverAppbar extends StatelessWidget {
             child: Text(
               article!.title,
               style: TextStyle(
+                  height: 1.2,
                   color: ColorsManager.white,
                   fontSize: 25.sp,
                   fontWeight: FontWeight.w500),

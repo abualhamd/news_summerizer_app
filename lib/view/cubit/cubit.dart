@@ -9,7 +9,7 @@ import 'package:news_app/view/cubit/states.dart';
 import '../../app/utils/enums.dart';
 import '../../data/helpers/cache_helper.dart';
 import '../../data/helpers/dio_helper.dart';
-import '../home/components/news_category_widget.dart';
+import '../home_view/components/news_category_widget.dart';
 
 //TODO split into NewsCubit and AppCubit; the AppCubit containing the toggleDarkMode
 class NewsCubit extends Cubit<AppState> {

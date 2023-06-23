@@ -36,6 +36,7 @@ dependencies:
   flutter_dotenv: ^5.0.2
   flutter_screenutil: ^5.8.4
   fluttertoast: ^8.2.1
+  lottie: ^2.4.0
   shared_preferences: ^2.0.15
   webview_flutter: ^4.2.0
 

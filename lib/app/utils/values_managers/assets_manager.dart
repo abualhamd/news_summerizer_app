@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 
+abstract class LottieAssetsManager {
+  static const String lightThemeSplashLogo =
+      "assets/light_theme_newspaper.json";
+  static const String darkThemeSplasLogo = "assets/dark_theme_newspaper.json";
+}
+
 abstract class ImagesManager {
   static const String fallbackImage = "assets/news-default-image@2x_0.png";
 }
